@@ -1,5 +1,5 @@
 from produto import Produto
-
+from pedidoinvaliderror import PedidoInvalidoError
 class Pedido:
     def __init__(self, cliente=None):
         self.__cliente = cliente
@@ -19,11 +19,10 @@ class Pedido:
             raise ValueError("O pedido já foi finalizado.")
 
         if not isinstance(produto, Produto): #funcao que testa se existe dentro de uma classe, victor nao ensinou
-            raise TypeError("O item deve ser um produto válido.")
+            raise PedidoInvalidoError("O item deve ser um produto válido.")
 
         if quantidade <= 0:
-            raise ValueError("A quantidade deve ser positiva.")
-
+            raise PedidoInvalidoError("A quantidade deve ser positiva.")
         self.__itens.append((produto, quantidade))
 
     def calcular_total(self):
