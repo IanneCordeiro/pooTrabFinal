@@ -15,5 +15,5 @@ class Doce(Produto):
             self.__kg = peso
         else:
             raise ValueError("Informe um peso válido.")
-    def calcular_preco(self, quantidade):
-        return (quantidade*self.preco) + (0.15*self.__kg)
+    def calcular_preco(self):
+        return (self.preco) + (0.15*self.__kg)
