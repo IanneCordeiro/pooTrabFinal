@@ -4,7 +4,7 @@ class Pedido:
     def __init__(self, cliente=None):
         self.__cliente = cliente
         self.__itens = []
-        self.__status = False
+        self.__status = "Pendente"
 
     @property
     def cliente(self):
@@ -15,12 +15,10 @@ class Pedido:
         return self.__status
 
     def adicionar_item(self, produto, quantidade):
-        if self.__status: #aqui ele testa se é true
+        if self.__status == "Finalizado":
             raise ValueError("O pedido já foi finalizado.")
-
         if not isinstance(produto, Produto): #funcao que testa se existe dentro de uma classe, victor nao ensinou
             raise PedidoInvalidoError("O item deve ser um produto válido.")
-
         if quantidade <= 0:
             raise PedidoInvalidoError("A quantidade deve ser positiva.")
         self.__itens.append((produto, quantidade))
@@ -34,18 +32,23 @@ class Pedido:
     def finalizar_pedido(self):
         if not self.__itens:
             raise ValueError("O pedido está vazio.")
-        self.__status = True
-
+        self.__status = "Finalizado"
+    
     def exibir_pedido(self):
-    print("---- PEDIDO ----")
-    print(f"Cliente: {self.__cliente}")
-    for produto, quantidade in self.__itens:
-        subtotal = produto.calcular_preco() * quantidade
-        print(f"Produto: {produto.nome} - Quantidade: {quantidade}")
-        print(f"Preço unitário: R$ {produto.calcular_preco():.2f}")
-    print(f"TOTAL: R$ {self.calcular_total():.2f}")
-    if self.__status:
-        print("Status: Finalizado")
-    else:
-        print("Status: Em aberto")
+        print("---- PEDIDO ----")
+        print(f"Cliente: {self.__cliente}")
+        for produto, quantidade in self.__itens:
+            subtotal = produto.calcular_preco() * quantidade
+            print(f"Produto: {produto.nome} - Quantidade: {quantidade}")
+            print(f"Preço unitário: R$ {produto.calcular_preco():.2f}")
+        print(f"TOTAL: R$ {self.calcular_total():.2f}")
+        print(f"Situação: {self.__status}")
+
+    def cancelar_pedido(self):
+        if self.__status == "Finalizado":
+            print("Não é possível cancelar esse pedido")
+        else:
+            self.__status = "Cancelado"
+
+
 
