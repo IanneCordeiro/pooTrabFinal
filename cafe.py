@@ -16,12 +16,12 @@ class Cafe(Produto):
         else:
             print("Informe um tamanho disponivel.")
         
-    def calcular_preco(self, quantidade):
+    def calcular_preco(self):
         if self.__tamanho == "pequeno":
-            return (quantidade*self.preco)
+            return self.preco
         if self.__tamanho == "medio":
-            return (quantidade*self.preco) + 1.20
+            return self.preco + 1.20
         if self.__tamanho == "grande":
-            return (quantidade*self.preco) + 2.10
+            return self.preco + 2.10
     
         
