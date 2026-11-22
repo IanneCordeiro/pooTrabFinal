@@ -38,7 +38,6 @@ class Pedido:
         print("---- PEDIDO ----")
         print(f"Cliente: {self.__cliente}")
         for produto, quantidade in self.__itens:
-            subtotal = produto.calcular_preco() * quantidade
             print(f"Produto: {produto.nome} - Quantidade: {quantidade}")
             print(f"Preço unitário: R$ {produto.calcular_preco():.2f}")
         print(f"TOTAL: R$ {self.calcular_total():.2f}")
