@@ -6,7 +6,7 @@ class Cliente():
         self.historico_pedido = []
 
     def adicionar_pedido(self, novo_pedido):
-        if novo_pedido.strip() < 1:
+        if len(novo_pedido.strip()) < 1:
             raise PedidoInvalidoError("O pedido não pode ta vazio")
         else:
             self.historico_pedido.append(novo_pedido)
