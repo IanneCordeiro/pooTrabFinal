@@ -1,9 +1,7 @@
-from produto import Produto
 from pedidoInvalidoError import PedidoInvalidoError
-
-class Cliente(Produto):
+class Cliente():
     def __init__(self, nome, contato):
-        super().__init__(nome)
+        self.nome = nome)
         self.contato = contato
         self.historico_pedido = []
 
