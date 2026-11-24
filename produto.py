@@ -30,5 +30,5 @@ class Produto(ABC):
             self.__preco = valor
 
     @abstractmethod
-    def calcular_preco(self, quantidade):
+    def calcular_preco(self):
        pass
