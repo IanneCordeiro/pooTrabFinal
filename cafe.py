@@ -11,7 +11,7 @@ class Cafe(Produto):
         return self.__tamanho
     @tamanho.setter
     def tamanho(self, tmn):
-        if self.tmn == "pequeno" or self.tmn == "medio" or self.tmn == "grande":
+        if tmn == "pequeno" or tmn == "medio" or tmn == "grande":
             self.__tamanho = tmn
         else:
             print("Informe um tamanho disponivel.")
