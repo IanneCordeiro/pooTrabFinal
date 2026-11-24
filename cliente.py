@@ -1,4 +1,4 @@
-from pedidoInvalidoError import PedidoInvalidoError
+from pedidoinvaliderror import PedidoInvalidoError
 class Cliente():
     def __init__(self, nome, contato):
         self.nome = nome)
