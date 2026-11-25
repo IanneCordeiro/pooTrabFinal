@@ -10,3 +10,5 @@ class Cliente():
             raise PedidoInvalidoError("O pedido não pode ta vazio")
         else:
             self.historico_pedido.append(novo_pedido)
+    def __str__(self):
+        return f"{self.nome} | Contato: {self.contato}"
