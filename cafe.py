@@ -23,5 +23,6 @@ class Cafe(Produto):
             return self.preco + 1.20
         if self.__tamanho == "grande":
             return self.preco + 2.10
-    
+    def __str__(self):
+        return f"{self.nome} | R$ {self.preco:.2f} | Tamanho: {self.tamanho}"
         
