@@ -4,6 +4,11 @@ from pedidoinvaliderror import PedidoInvalidoError
 from pedido import Pedido
 from cliente import Cliente
 from encomenda import Encomenda
+from cafe import Cafe
+from bolo import Bolo
+from doce import Doce
+from kit_evento import KitEvento
+from cadastroerro import CadastroDuplicadoError
 
 class Cafeteria:
     def __init__(self):
@@ -25,9 +30,17 @@ class Cafeteria:
     def encomendas(self):
         return list(self.__encomendas)
 
+    def mostrar_cardapio(self):
+        print("\n---- CARDÁPIO DOCE CÓDIGO ----")
+        if len(self.__produtos) == 0:
+            print("Nenhum produto disponível no cardápio.")
+        else:
+            for produto in self.__produtos:
+                print(str(produto))
+
     def cadastrar_produto(self, produto):
         if not isinstance(produto, Produto):
-            raise PedidoInvalidoError("Produto inválido.")
+            raise ValueError("Produto inválido.")
         else:
             self.__produtos.append(produto)
             print("Produto cadastrado com sucesso!")
@@ -35,13 +48,17 @@ class Cafeteria:
     def cadastrar_cliente(self, cliente):
         if not isinstance(cliente, Cliente):
             raise ValueError("Cliente inválido.")
-        else:
-            self.__clientes.append(cliente)
-            print("Cliente cadastrado com sucesso!")
+
+        for c in self.__clientes:
+            if c.nome.lower() == cliente.nome.lower():
+                raise CadastroDuplicadoError("Esse cliente já está cadastrado.")
+
+        self.__clientes.append(cliente)
+        print("Cliente cadastrado com sucesso!")
 
     def buscar_cliente(self, nome):
         for cliente in self.__clientes:
-            if cliente.nome.strip().lower() == nome.strip().lower():
+            if cliente.nome.strip().lower() in nome.strip().lower():
                 return cliente
         else:
             raise ValueError( "Cliente não encontrado")
@@ -50,8 +67,7 @@ class Cafeteria:
         for produto in self.__produtos:
             if produto.nome.strip().lower() == nome.strip().lower():
                 return produto
-        else:
-            raise ValueError( "Produto não encontrado")
+        raise ValueError("Produto não encontrado")
 
     def realizar_pedido(self, pedido):
         if not isinstance(pedido, Pedido):
@@ -117,3 +133,10 @@ class Cafeteria:
         else:
             for encomenda in self.__encomendas:
                 print(encomenda)
+
+    def criar_encomenda(self, cliente):
+        if not isinstance(cliente, Cliente):
+            raise ValueError("Cliente inválido.")
+
+        encomenda = Encomenda(cliente)
+        return encomenda
