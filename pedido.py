@@ -7,12 +7,21 @@ class Pedido:
         self.__status = "Pendente"
 
     @property
+    def itens(self):
+        return list(self.__itens)
+    @property
     def cliente(self):
         return self.__cliente
 
     @property
     def status(self):
         return self.__status
+    @status.setter
+    def status(self, situacao):
+        if situacao in ("Pendente", "Finalizado", "Cancelado"):
+            self.__status = situacao
+        else:
+            raise PedidoInvalidoError("Situação inválida.")
 
     def adicionar_item(self, produto, quantidade):
         if self.__status == "Finalizado":
@@ -48,6 +57,29 @@ class Pedido:
             print("Não é possível cancelar esse pedido")
         else:
             self.__status = "Cancelado"
+
+    def mudar_status(self, situacao):
+        if not self.__itens:
+            raise PedidoInvalidoError("O pedido não pode estar vazio.")
+
+        if situacao not in ("Pendente", "Finalizado", "Cancelado"):
+            raise PedidoInvalidoError("Situação inválida.")
+
+        self.__status = situacao
+
+    def __str__(self):
+        texto = "---- PEDIDO ----\n"
+        texto += f"Cliente: {self.__cliente}\n"
+
+        for produto, quantidade in self.__itens:
+            texto += f"Produto: {produto.nome} - Quantidade: {quantidade}\n"
+            texto += f"Preço unitário: R$ {produto.calcular_preco():.2f}\n"
+            texto += f"Subtotal: R$ {produto.calcular_preco() * quantidade:.2f}\n"
+
+        texto += f"TOTAL: R$ {self.calcular_total():.2f}\n"
+        texto += f"Situação: {self.__status}"
+
+        return texto
 
 
 
