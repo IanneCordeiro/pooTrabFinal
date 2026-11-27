@@ -11,7 +11,7 @@ class KitEvento(Produto):
         return self.__tamanho
     @tamanho.setter
     def tamanho(self, tmn):
-        if self.tmn == "pequeno" or self.tmn == "medio" or self.tmn == "grande":
+        if tmn == "pequeno" or tmn == "medio" or tmn == "grande":
             self.__tamanho = tmn
         else:
             print("Informe um tamanho disponivel.")
@@ -23,3 +23,5 @@ class KitEvento(Produto):
             return (self.preco) + 15
         if self.__tamanho == "grande":
             return (self.preco) + 30
+    def __str__(self):
+        return f"{self.nome} | R$ {self.preco:.2f} | Tamanho: {self.tamanho}"
