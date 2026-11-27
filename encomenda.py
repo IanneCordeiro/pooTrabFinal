@@ -3,7 +3,7 @@ from produto import Produto
 from pedidoinvaliderror import PedidoInvalidoError
 class Encomenda(Pedido):
     def __init__(self, cliente):
-        super().__init__(self, cliente)
+        super().__init__(cliente)
 #def calcular
 #def mudar status
 #adicionar item
@@ -13,17 +13,18 @@ class Encomenda(Pedido):
             total += produto.calcular_preco() * quantidade
         return total
 
-    def mudar_status(self, situacao):
-        if len(self.__itens) < 1:
-            raise PedidoInvalidoError("O pedido nâo pode estar vazio.")
-        if situacao in ("Pendente", "Finalizado", "Cancelado"):
-            self.__status = situacao
 
     def adicionar_item(self, produto, quantidade):
-        if self.__status == "Finalizado":
-            raise ValueError("O pedido já foi concluido")
-        if not isinstance(produto, Produto): 
-            raise PedidoInvalidoError("Item inexistente")
-        if quantidade <= 1:
-            raise PedidoInvalidoError("Quantidade invalida")
-        self.__itens.append((produto, quantidade))
+        if self.status == "Finalizado":
+            raise ValueError("A encomenda já foi concluída.")
+
+        if not isinstance(produto, Produto):
+            raise PedidoInvalidoError("Item inexistente.")
+
+        if quantidade <= 0:
+            raise PedidoInvalidoError("Quantidade inválida.")
+
+        super().adicionar_item(produto, quantidade)
+
+    def __str__(self):
+        return f"Encomenda | Cliente: {self.cliente.nome} | Status: {self.status} | Total: R$ {self.calcular_total():.2f}"
