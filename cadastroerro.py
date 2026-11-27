@@ -1,0 +1,2 @@
+class CadastroDuplicadoError(Exception):
+    pass
